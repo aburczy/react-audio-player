@@ -5,6 +5,7 @@ export const useAudioPlayer = () => {
   const [currentSong, setCurrentSong] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -13,6 +14,13 @@ export const useAudioPlayer = () => {
     setCurrentSong(url);
     setCurrentTime(0);
     setIsPlaying(false);
+  };
+
+  const changeVolume = (newVolume: number) => {
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+    setVolume(newVolume);
   };
 
   const togglePlay = () => {
@@ -47,7 +55,10 @@ export const useAudioPlayer = () => {
   };
 
   const onLoadedMetadata = () => {
-    if (audioRef.current) setDuration(audioRef.current.duration);
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+      audioRef.current.volume = volume;
+    }
   };
 
   const onEnded = () => setIsPlaying(false);
@@ -58,6 +69,8 @@ export const useAudioPlayer = () => {
     currentTime,
     duration,
     audioRef,
+    volume,
+    changeVolume,
     loadFile,
     togglePlay,
     seek,

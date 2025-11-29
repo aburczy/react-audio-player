@@ -4,6 +4,7 @@ import { Controls } from "./Controls";
 import { ProgressBar } from "./ProgressBar";
 import { FileUploader } from "./FileUploader";
 import { WaveformVisualizer } from "./WaveformVisualizer";
+import { VolumeControl } from "./VolumeControl";
 
 export const AudioPlayerContainer: React.FC = () => {
   const {
@@ -12,10 +13,12 @@ export const AudioPlayerContainer: React.FC = () => {
     currentTime,
     duration,
     audioRef,
+    volume,
     loadFile,
     togglePlay,
     seek,
     restart,
+    changeVolume,
     audioEvents,
   } = useAudioPlayer();
 
@@ -29,7 +32,6 @@ export const AudioPlayerContainer: React.FC = () => {
 
       {currentSong && (
         <>
-          {/* Visualisation d’onde */}
           <WaveformVisualizer audioRef={audioRef} isPlaying={isPlaying} />
 
           <Controls
@@ -44,6 +46,8 @@ export const AudioPlayerContainer: React.FC = () => {
             duration={duration}
             onSeek={seek}
           />
+
+          <VolumeControl volume={volume} onChangeVolume={changeVolume} />
         </>
       )}
     </div>
