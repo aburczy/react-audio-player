@@ -32,6 +32,16 @@ export const useAudioPlayer = () => {
     }
   };
 
+  const restart = () => {
+    const audio = audioRef.current;
+    if (!audio || !currentSong) return;
+
+    audio.currentTime = 0;
+    audio.play();
+    setCurrentTime(0);
+    setIsPlaying(true);
+  };
+
   const onTimeUpdate = () => {
     if (audioRef.current) setCurrentTime(audioRef.current.currentTime);
   };
@@ -51,6 +61,8 @@ export const useAudioPlayer = () => {
     loadFile,
     togglePlay,
     seek,
+    restart,
+    stop,
     audioEvents: {
       onTimeUpdate,
       onLoadedMetadata,
