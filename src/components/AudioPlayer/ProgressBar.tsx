@@ -6,28 +6,18 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   duration,
   onSeek,
 }) => {
-  const styles: { [key: string]: React.CSSProperties } = {
-    progressContainer: {
-      display: "flex",
-      alignItems: "center",
-      width: "100%",
-      gap: "10px",
-    },
-    progressBar: { flex: 1, cursor: "pointer" },
-  };
-
   return (
-    <div style={styles.progressContainer}>
-      <span>{formatTime(currentTime)}</span>
+    <div className="progress-container">
+      <span className="time-label">{formatTime(currentTime)}</span>
       <input
         type="range"
         min={0}
-        max={duration}
+        max={duration || 0}
         value={currentTime}
         onChange={(e) => onSeek(Number(e.target.value))}
-        style={styles.progressBar}
+        className="progress-bar"
       />
-      <span>{formatTime(duration)}</span>
+      <span className="time-label">{formatTime(duration)}</span>
     </div>
   );
 };

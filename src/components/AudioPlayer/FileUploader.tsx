@@ -9,8 +9,14 @@ export const FileUploader: React.FC<FileUploaderProps> = ({ onFileSelect }) => {
   };
 
   return (
-    <div style={{ marginBottom: "20px" }}>
-      <input type="file" accept="audio/*" onChange={handleChange} />
+    <div className="file-uploader">
+      <label className="file-label">Fichier audio</label>
+      <input
+        type="file"
+        accept="audio/*"
+        onChange={handleChange}
+        className="file-input"
+      />
     </div>
   );
 };
